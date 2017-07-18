@@ -241,18 +241,20 @@ export class Parser {
 			}
 
 			if(obj && obj._after) obj._after();
+            
+            const isValidItem = item || (typeof(item) === 'number') && !!text;
 
 			state = state.parent;
 
 			if(member && member.proxy) {
-				if(item) state.item[member.safeName] = item;
+				if(isValidItem) state.item[member.safeName] = item;
 				item = state.item;
 
 				state = state.parent;
 				member = member.proxy;
 			}
 
-			if(item) {
+			if(isValidItem) {
 				var parent = state.item;
 
 				if(parent) {
